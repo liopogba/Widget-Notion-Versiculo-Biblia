@@ -1,100 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Versículo Diario - Biblia Católica</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-size: cover;
-            background-position: center;
-            color: white;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .verse-container {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 600px;
-        }
-        h2 {
-            margin-top: 0;
-        }
-    </style>
+    <title>Test Page</title>
 </head>
 <body>
-    <div class="verse-container">
-        <h2>Versículo del Día 📖</h2>
-        <p id="verse-text">Cargando versículo...</p>
-        <p><strong id="verse-reference"></strong></p>
-    </div>
-
-    <script>
-        const backgrounds = [
-            "https://source.unsplash.com/1600x900/?church",
-            "https://source.unsplash.com/1600x900/?cross",
-            "https://source.unsplash.com/1600x900/?bible",
-            "https://source.unsplash.com/1600x900/?christian",
-            "https://source.unsplash.com/1600x900/?prayer",
-            "https://source.unsplash.com/1600x900/?vatican",
-        ];
-
-        const today = new Date().toISOString().split("T")[0];
-
-        // Function to get a daily random background
-        function getDailyBackground() {
-            let storedDate = localStorage.getItem("backgroundDate");
-            let storedBackground = localStorage.getItem("backgroundImage");
-
-            if (storedDate !== today || !storedBackground) {
-                let newBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
-                localStorage.setItem("backgroundDate", today);
-                localStorage.setItem("backgroundImage", newBackground);
-                return newBackground;
-            }
-            return storedBackground;
-        }
-
-        document.body.style.backgroundImage = `url('${getDailyBackground()}')`;
-
-        // Function to fetch daily verse
-        async function fetchDailyVerse() {
-            let storedVerse = JSON.parse(localStorage.getItem("dailyVerse"));
-            let storedVerseDate = localStorage.getItem("verseDate");
-
-            if (storedVerse && storedVerseDate === today) {
-                document.getElementById("verse-text").innerText = storedVerse.text;
-                document.getElementById("verse-reference").innerText = storedVerse.reference;
-                return;
-            }
-
-            try {
-                let response = await fetch("https://beta.ourmanna.com/api/v1/get/?format=json&order=daily");
-                let data = await response.json();
-                let verseText = data.verse.details.text;
-                let verseReference = data.verse.details.reference;
-
-                let dailyVerse = { text: verseText, reference: verseReference };
-
-                localStorage.setItem("dailyVerse", JSON.stringify(dailyVerse));
-                localStorage.setItem("verseDate", today);
-
-                document.getElementById("verse-text").innerText = verseText;
-                document.getElementById("verse-reference").innerText = verseReference;
-            } catch (error) {
-                document.getElementById("verse-text").innerText = "Error al cargar el versículo.";
-            }
-        }
-
-        fetchDailyVerse();
-    </script>
+    <h1>✅ Cloudflare Pages is working!</h1>
 </body>
 </html>
